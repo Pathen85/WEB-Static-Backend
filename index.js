@@ -1,11 +1,12 @@
 const express = require('express');
-const http = require('http');
 const app = express();
+const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const port = process.env.PORT || '3000';
 app.set('port', port);
 
+app.use(cors());
 app.use(bodyParser.json());
 
 const words = require('./resources/words');
