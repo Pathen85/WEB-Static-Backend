@@ -21,8 +21,9 @@ app.post('/highscore', (req, res) => {
 
     for (let user in newScore) {
         if (Number.isInteger(newScore[user])) {
-            highscores[user] = newScore[user];
+            if (!(highscores[user] > newScore[user])) highscores[user] = newScore[user];
         }
+
         else {
             res.status(400).json({message: 'The score for ' + user + ' is not an Integer'});
             return;
