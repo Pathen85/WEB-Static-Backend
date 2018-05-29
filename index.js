@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
@@ -8,6 +9,10 @@ app.set('port', port);
 
 app.use(cors());
 app.use(bodyParser.json());
+
+// Serve static files
+const staticPath = path.join(__dirname, 'public');
+app.use(express.static(staticPath));
 
 const words = require('./resources/words');
 const highscores = require('./resources/highscores');
