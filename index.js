@@ -17,6 +17,17 @@ app.use(express.static(staticPath));
 const words = require('./resources/words');
 const highscores = require('./resources/highscores');
 
+app.use(function(err, req, res, next) {
+    if (err.type === 'entity.parse.failed') {
+        return res.status(400).send(JSON.stringify({
+            error: {
+                code: "INVALID_JSON",
+                message: "The body of your request is not valid JSON."
+            }
+        }))
+    }
+});
+
 app.get('/highscore', (req, res) => {
     res.status(200).json(highscores);
 });
